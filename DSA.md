@@ -40,6 +40,7 @@
     Result of subproblems not stored for future reference | Results are stored for future reference
     Use when sub problem is not solved multiple times | Use when result of subproblem is to be used
     <br>
+    
     ### Applications:
     - Binary Search
     - Merge Sort
