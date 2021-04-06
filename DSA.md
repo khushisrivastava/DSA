@@ -6,19 +6,19 @@
         - o(n)
         - Represents Upper bond.
         - Gives Worst-Case complexity.
-        ![Big O](https://cdn.programiz.com/sites/tutorial2program/files/big0.png)
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/big0.png" height="50%" width="50%" >
 
     - ### *Omega Notation* - 
         - Ω(n)
         - Represents Lower bond.
         - Gives Best-Case complexity.
-        ![Omega](https://cdn.programiz.com/sites/tutorial2program/files/omega.png)
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/omega.png" height="50%" width="50%" >
 
     - ### *Theta Notation* - 
         - Θ(n)
         - Encloses the function from above and below.
         - Gives Average-Case complexity.
-        ![Theta](https://cdn.programiz.com/sites/tutorial2program/files/theta.png)
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/theta.png" height="50%" width="50%" >
 
 
     ****************************************************
