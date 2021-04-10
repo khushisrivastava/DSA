@@ -6,19 +6,19 @@
         - o(n)
         - Represents Upper bond.
         - Gives Worst-Case complexity.
-        ![Big O](https://cdn.programiz.com/sites/tutorial2program/files/big0.png)
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/big0.png" height="50%" width="50%" >
 
     - ### *Omega Notation* - 
         - Ω(n)
         - Represents Lower bond.
         - Gives Best-Case complexity.
-        ![Omega](https://cdn.programiz.com/sites/tutorial2program/files/omega.png)
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/omega.png" height="50%" width="50%" >
 
     - ### *Theta Notation* - 
         - Θ(n)
         - Encloses the function from above and below.
         - Gives Average-Case complexity.
-        ![Theta](https://cdn.programiz.com/sites/tutorial2program/files/theta.png)
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/theta.png" height="50%" width="50%" >
 
 
     ****************************************************
@@ -31,6 +31,7 @@
     - **Conquer** - Solve smaller sub-problems *(recursively)*.
     - **Combine** - Combine the result of sub-problems to solve the actual problem.
     <br>
+    
     ### Time Complexity: O(nlog(n))
     <br>
 
@@ -40,6 +41,7 @@
     Result of subproblems not stored for future reference | Results are stored for future reference
     Use when sub problem is not solved multiple times | Use when result of subproblem is to be used
     <br>
+    
     ### Applications:
     - Binary Search
     - Merge Sort
