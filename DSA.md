@@ -136,4 +136,110 @@
     ****************************************************************************
     <br>
     <br>
-- ## **Queue:**
+- ## **Queue / Simple Queue:**
+    ### Concept:
+    - Ticket Queue:
+        - Enters first
+        - Gets tickect first
+    - **FIFO Rule** - First In First Out
+    - Enqueque - Putting in the item in the list
+    - Dequeue -  Removing the item form list 
+    <br>
+
+    ### Operations:
+    - **Enqueue** - Add element to the end of queue.
+    - **Dequeue** - Remove an element from the front of queue.
+    - **IsEmpty** - Check if queue is empty.
+    - **IsFull** - Check if queue is full.
+    - **Peek** - Get value of first element without removing it.
+    <br>
+
+    ### Working:
+    - 2 pointers - `FRONT` to track first element and `REAR` to track last element.
+    - Initially both `FRONT` and `REAR` set to `-1`.
+    - **Enqueue** - 
+        - Check if queue is full.
+        - For 1st element, set value of `FRONT` and `REAR` to `0`.
+        - For adding a new element, increase `REAR` by `1` and insert element in the position pointed by it.
+    - **Dequeue** - 
+        - Check if queue is empty.
+        - Return the value pointed by `Front` and increase its value by `1`.
+        - For the last element, i.e when `FRONT == REAR`, reset the value of both to `-1`.
+        
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/Queue-program-enqueue-dequeue.png" height="70%" width="70%" >
+    <br>
+
+    ### Implementtation:
+    ```python
+    class Queue:
+
+        def __init__(self):
+            self.queue = []
+
+        # Add an element
+        def enqueue(self, item):
+            self.queue.append(item)
+
+        # Remove an element
+        def dequeue(self):
+            if len(self.queue) < 1:
+                return None
+            return self.queue.pop(0)
+
+        # Display  the queue
+        def display(self):
+            print(self.queue)
+
+        def size(self):
+            return len(self.queue)
+
+
+    q = Queue()
+    q.enqueue(1)
+    q.enqueue(2)
+    q.enqueue(3)
+    q.enqueue(4)
+    q.enqueue(5)
+
+    q.display()
+
+    q.dequeue()
+
+    print("After removing an element")
+    q.display()
+    ```
+    <br>
+
+    ### Limitation:
+    After few enqueue and dequeue operation the size of queue reduces. We can only use the indexes smaller than `FRONT` only when both `FRONT` and `REAR` is set to initial.<br>
+    To solve this: ***Circular Queue***
+    <br>
+
+    ### Time Complexity: O(1)
+    <br>
+
+    ### Applications:
+    - CPU and Disk Scheduling
+    - Queue is used to synchronise asynchronous data transfer.
+    - Handeling interrupt in real-time system.
+    - Call center phone system - to hold people calling them in order.
+    <br>
+
+    ### Types:
+    - Simple Queue
+
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/simple-queue_0.png" height="70%" width="70%" >
+    - Circular Queue
+
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/circular-queue.png" height="70%" width="70%" >
+    - Priority Queue
+
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/priority-queue.png" height="70%" width="70%" >
+    - Double Ended Queue
+
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/double-ended-queue.png" height="70%" width="70%" >
+    
+    *****************************************************************************
+    <br>
+    <br>
+<!-- - ## Circular Queue -->
