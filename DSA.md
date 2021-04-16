@@ -493,7 +493,8 @@
         - If `FRONT < 1`. Set `FRONT = n - 1` else `FRONT -= 1`.
         - Insert element at the position of `FRONT`.
     - **Insert at rear** -
-        - If array if full `REAR = 0` else `REAR += 1`.
+        - If array if full `REAR = 0`. 
+        - Else `REAR += 1`.
         - Insert element at the position of `REAR`.
     - **Delete from from** - 
         - Check if array is empty.
