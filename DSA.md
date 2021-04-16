@@ -134,8 +134,8 @@
     - **Browser back button**
 
     ****************************************************************************
-    <br>
-    <br>
+<br>
+<br>
 
 - ## **Queue / Simple Queue:**
     ### Concept:
@@ -240,11 +240,12 @@
 
         <img src="https://cdn.programiz.com/sites/tutorial2program/files/double-ended-queue.png" height="70%" width="70%" >
     
-    *****************************************************************************
-    <br>
-    <br>
 
-- ## Circular Queue:
+    *****************************************************************************
+<br>
+<br>
+
+- ## **Circular Queue:**
     ### Working -
     - Circular Increment
     - When `REAR` reaches the end of the queue, we start by beigning of the queue.
@@ -347,11 +348,12 @@
     - CPU Scheduling
     - Memory Management
     - Traffic Management
+    
     **************************************************************************************
-    <br>
-    <br>
+<br>
+<br>
 
-- ## Priority Queue:
+- ## **Priority Queue:**
     ### Understanding: 
     - Each element is associated with a priority and is served according to that.
     - If elements have same priority then served according to order in queue.
@@ -469,6 +471,94 @@
     - Implementing stack
     - Load balancing and interrupt handeling in os.
     - Data compression in Huffman code.
+    
     ******************************************************************************************
+<br>
+<br>
+
+- ## **Deque:**
+    ### Concept:
+    - Insertion and Removal can be perfromed from both the ends.
+    - Do not follow **FIFO**.
+    - TYPES:
+        - **Input Restricted Deque**:
+        Input restricted from single end but output from both the ends.
+        - **Output Restricted Deque**:
+        Output restricted from single end but input from both the ends.
     <br>
+
+    ### Operations:
+    - An array of size `n` and 2 pointers `FRONT = -1` and `REAR = 0`.
+    - **Insert at front** -
+        - If `FRONT < 1`. Set `FRONT = n - 1` else `FRONT -= 1`.
+        - Insert element at the position of `FRONT`.
+    - **Insert at rear** -
+        - If array if full `REAR = 0` else `REAR += 1`.
+        - Insert element at the position of `REAR`.
+    - **Delete from from** - 
+        - Check if array is empty.
+        - If `FRONT == REAR`, set `FRONT = REAR = -1`.
+        - Else if `FRONT == n - 1`, set `FRONT = 0`.
+        - Else set `FRONT += 1`.
+    - **Delete from rear** -
+        - Check if array is empty.
+        - If `FRONT == REAR`, set `FRONT = REAR = -1`.
+        - Else if `REAR == 0`, set `REAR = n - 1`.
+        - Else `REAR -= 1`.
+    - **Check empty** - `FRONT == -1`
+    - **Check full** - `FRONT == 0` and `REAR == n - 1` or `FRONT == REAR + 1`.
     <br>
+
+    ### Implementation:
+    ```python
+    class Deque:
+        def __init__(self):
+            self.items = []
+
+        def isEmpty(self):
+            return self.items == []
+
+        def addRear(self, item):
+            self.items.append(item)
+
+        def addFront(self, item):
+            self.items.insert(0, item)
+
+        def removeFront(self):
+            return self.items.pop(0)
+
+        def removeRear(self):
+            return self.items.pop()
+
+        def size(self):
+            return len(self.items)
+
+
+    d = Deque()
+    print(d.isEmpty())
+    d.addRear(8)
+    d.addRear(5)
+    d.addFront(7)
+    d.addFront(10)
+    print(d.size())
+    print(d.isEmpty())
+    d.addRear(11)
+    print(d.removeRear())
+    print(d.removeFront())
+    d.addFront(55)
+    d.addRear(45)
+    print(d.items)
+    ```
+    <br>
+
+    ### Time Complexity: O(1)
+    <br>
+
+    ### Applications:
+    - Undo Software operations
+    - Store browser history
+    - Implementiong stacks and queue
+    
+    **************************************************************************************
+<br>
+<br>
