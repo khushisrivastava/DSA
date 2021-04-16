@@ -7,21 +7,21 @@
         - Represents Upper bond.
         - Gives Worst-Case complexity.
 
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/big0.png" height="50%" width="50%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/big0.png" height="30%" width="30%" >
 
     - ### *Omega Notation* - 
         - Ω(n)
         - Represents Lower bond.
         - Gives Best-Case complexity.
 
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/omega.png" height="50%" width="50%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/omega.png" height="30%" width="30%" >
 
     - ### *Theta Notation* - 
         - Θ(n)
         - Encloses the function from above and below.
         - Gives Average-Case complexity.
 
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/theta.png" height="50%" width="50%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/theta.png" height="30%" width="30%" >
 
 
     ****************************************************
@@ -85,7 +85,7 @@
     5. Before pushing: check if stack is full.
     6. Before popping: check if stack is empty.
 
-    <img src="https://cdn.programiz.com/sites/tutorial2program/files/stack-operations.png" height="70%" width="70%" >
+    <img src="https://cdn.programiz.com/sites/tutorial2program/files/stack-operations.png" height="50%" width="50" >
     <br>
 
     ### Implementation:
@@ -167,7 +167,7 @@
         - Return the value pointed by `Front` and increase its value by `1`.
         - For the last element, i.e when `FRONT == REAR`, reset the value of both to `-1`.
         
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/Queue-program-enqueue-dequeue.png" height="70%" width="70%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/Queue-program-enqueue-dequeue.png" height="40%" width="40%" >
     <br>
 
     ### Implementtation:
@@ -229,16 +229,16 @@
     ### Types:
     - Simple Queue
 
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/simple-queue_0.png" height="70%" width="70%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/simple-queue_0.png" height="50%" width="50%" >
     - Circular Queue
 
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/circular-queue.png" height="70%" width="70%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/circular-queue.png" height="50%" width="50%" >
     - Priority Queue
 
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/priority-queue.png" height="70%" width="70%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/priority-queue.png" height="50%" width="50%" >
     - Double Ended Queue
 
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/double-ended-queue.png" height="70%" width="70%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/double-ended-queue.png" height="50%" width="50%" >
     
 
     *****************************************************************************
@@ -268,7 +268,7 @@
         - ```
             FRONT == 0 and REAR == SIZE -1 or FRONT == REAR + 1 
             ```
-        <img src="https://cdn.programiz.com/sites/tutorial2program/files/circular-queue-program.png" height="70%" width="70%" >
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/circular-queue-program.png" height="40%" width="40%" >
     <br>
 
     ### Implementation:
