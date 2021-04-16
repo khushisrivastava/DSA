@@ -264,9 +264,9 @@
         - Return the value pointed by `Front` and circularly increase its value by `1`.
         - For the last element, i.e when `FRONT == REAR`, reset the value of both to `-1`.
     - **IsFull** - 2 cases:
-        - ``` python
+        - ```
             FRONT == 0 and REAR == SIZE -1 or FRONT == REAR + 1 
-        
+            ```
         <img src="https://cdn.programiz.com/sites/tutorial2program/files/circular-queue-program.png" height="70%" width="70%" >
     <br>
 
@@ -348,5 +348,127 @@
     - Memory Management
     - Traffic Management
     **************************************************************************************
+    <br>
+    <br>
+
+- ## Priority Queue:
+    ### Understanding: 
+    - Each element is associated with a priority and is served according to that.
+    - If elements have same priority then served according to order in queue.
+    <br>
+
+    ### Implementation: 
+    - Implemented using -
+        - Array
+        - Linked List
+        - Heap (Most Efficient)
+        - BST
+    - Time Complexity -  
+
+        Operations | peek | insert | delete
+        ---------- | ---- | ------ | ------
+        Linked List | O(1) | O(n) | O(1)
+        Binary Heap | O(1) | O(log n) | O(log n)
+        Binary Search Tree | O(1) | O(log n) | O(log n)
+    <br>
+
+    ### Operations:
+    - Insert -
+        1. Insert element to the end of the tree.
+        2. Heapify the tree.
+        - ```
+            if there is no node, 
+            create a newNode.
+            else (if a node is already present)
+            insert the newNode at the end (last node from left to right.)
+            
+            heapify the array
+            ```
+    - Delete - 
+        1. Select the elemenet to be deleted and swap with the last element.
+        2. Remove the last element.
+        3. Heapify the tree.
+        - ```
+            If nodeToBeDeleted is the leafNode
+            remove the node
+            Else swap nodeToBeDeleted with the lastLeafNode
+            remove noteToBeDeleted
+            
+            heapify the array
+            ```
+    - Peek -
+        - Return max element from max-heap and min element from min-heap
+        - `return rootNode`
+    <br>
+
+    ### Implementation:
+    ```python
+    # Function to heapify the tree
+    def heapify(arr, n, i):
+        # Find the largest among root, left child and right child
+        largest = i
+        l = 2 * i + 1
+        r = 2 * i + 2
+
+        if l < n and arr[i] < arr[l]:
+            largest = l
+
+        if r < n and arr[largest] < arr[r]:
+            largest = r
+
+        # Swap and continue heapifying if root is not largest
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]
+            heapify(arr, n, largest)
+
+
+    # Function to insert an element into the tree
+    def insert(array, newNum):
+        size = len(array)
+        if size == 0:
+            array.append(newNum)
+        else:
+            array.append(newNum)
+            for i in range((size // 2) - 1, -1, -1):
+                heapify(array, size, i)
+
+
+    # Function to delete an element from the tree
+    def deleteNode(array, num):
+        size = len(array)
+        i = 0
+        for i in range(0, size):
+            if num == array[i]:
+                break
+
+        array[i], array[size - 1] = array[size - 1], array[i]
+
+        array.remove(size - 1)
+
+        for i in range((len(array) // 2) - 1, -1, -1):
+            heapify(array, len(array), i)
+
+
+    arr = []
+
+    insert(arr, 3)
+    insert(arr, 4)
+    insert(arr, 9)
+    insert(arr, 5)
+    insert(arr, 2)
+
+    print ("Max-Heap array: " + str(arr))
+
+    deleteNode(arr, 4)
+    print("After deleting an element: " + str(arr))
+    ```
+    <br>
+
+    ### Application:
+    - Dijkstra's algorithm
+    - Implementing stack
+    - Load balancing and interrupt handeling in os.
+    - Data compression in Huffman code.
+    ******************************************************************************************
     <br>
     <br>
