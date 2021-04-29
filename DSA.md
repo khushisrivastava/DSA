@@ -24,7 +24,7 @@
         <img src="https://cdn.programiz.com/sites/tutorial2program/files/theta.png" height="30%" width="30%" >
 
 
-    ****************************************************
+    *************************************************************************************************
 <br>
 <br>
 
@@ -52,7 +52,7 @@
     - Strassen's Matrix multiplication
     - Karatsuba Algorithm
 
-    ******************************************************
+    **********************************************************************************************
 <br>
 <br>
 
@@ -133,7 +133,7 @@
     - **Calculate prefix or postfix value**
     - **Browser back button**
 
-    ****************************************************************************
+    *************************************************************************************
 <br>
 <br>
 
@@ -241,7 +241,7 @@
         <img src="https://cdn.programiz.com/sites/tutorial2program/files/double-ended-queue.png" height="50%" width="50%" >
     
 
-    *****************************************************************************
+    *************************************************************************************
 <br>
 <br>
 
@@ -561,5 +561,217 @@
     - Implementiong stacks and queue
     
     **************************************************************************************
+<br>
+<br>
+
+- ## **Linked List:**
+    ### Understanding:
+    - Series of connected nodes. Each node stores data and address of next node.
+    - Address of first node is given as `HEAD`.
+    - Address to next node is `NULL` in the last node.
+    - Ability to break the chain and rejoin it.
+    <br>
+
+    ### Implementation:
+    ```python
+    class Node:
+        # Creating a node
+        def __init__(self, item):
+            self.item = item
+            self.next = None
+
+
+    class LinkedList:
+
+        def __init__(self):
+            self.head = None
+
+
+    if __name__ == '__main__':
+
+        linked_list = LinkedList()
+
+        # Assign item values
+        linked_list.head = Node(1)
+        second = Node(2)
+        third = Node(3)
+
+        # Connect nodes
+        linked_list.head.next = second
+        second.next = third
+
+        # Print the linked list item
+        while linked_list.head != None:
+            print(linked_list.head.item, end=" ")
+            linked_list.head = linked_list.head.next
+    ```
+    <br>
+
+    ### Complexity:
+    - Time:
+        - *Search* - O(n)
+        - *Insert* - O(1)
+        - *Delete* - O(1)
+    - Space - O(n)
+    <br>
+
+    ### Application:
+    - Dynamic memory allocation.
+    - Implemented in stack and queue.
+    - UNDO functionalities.
+    - Hash tables, Graphs.
+    <br>
+
+    ### Operations:
+    - **Traverse**
+        - Displaying the content of list.
+        - Keep moving the `temp` node to the next node and display its content. If `temp` is `NULL` => we have reached the end of the list.
+    
+    - **Insert**
+        - Adding elements to list.
+        - *Insert at the beigning*:
+            1. Allocate memory for new node and store data.
+            2. `new_node.next = head`.
+            3. `head = new_node`.
+        - *Insert at the end*:
+            1. Allocate memory for new node and store data.
+            2. Traverse to last node.
+            3. `temp.next = new_node`.
+        - *Insert at the middle*:
+            1. Allocate memory for new node and store data. 
+            2. Traverse to the node just before the required position of the `new_node`.
+            3. `new_node.next = temp.next`.
+            4. `temp.next = new_node`.
+    
+    - **Delete**
+        - Deleting node from the list.
+        - *Delete from beigning*:
+            1. `head = head.next`.
+        - *Delete from end*:
+            1. Traverse to second last element.
+            2. `temp.next = NULL`.
+        - *Delete from middle*:
+            1. Traverse to the element before the element to be deleted.
+            2. `temp.next = temp.next.next`.
+    <br>
+
+    ### Implementation of Operations:
+    ```python
+    # Create a node
+    class Node:
+        def __init__(self, item):
+            self.item = item
+            self.next = None
+
+
+    class LinkedList:
+
+        def __init__(self):
+            self.head = None
+
+        # Insert at the beginning
+        def insertAtBeginning(self, data):
+            new_node = Node(data)
+
+            new_node.next = self.head
+            self.head = new_node
+
+        # Insert after a node
+        def insertAfter(self, node, data):
+
+            if node is None:
+                print("The given previous node must inLinkedList.")
+                return
+
+            new_node = Node(data)
+            new_node.next = node.next
+            node.next = new_node
+
+        # Insert at the end
+        def insertAtEnd(self, data):
+            new_node = Node(data)
+
+            if self.head is None:
+                self.head = new_node
+                return
+
+            last = self.head
+            while (last.next):
+                last = last.next
+
+            last.next = new_node
+
+        # Deleting a node
+        def deleteNode(self, position):
+
+            if self.head == None:
+                return
+
+            temp_node = self.head
+
+            if position == 0:
+                self.head = temp_node.next
+                temp_node = None
+                return
+
+            # Find the key to be deleted
+            for i in range(position - 1):
+                temp_node = temp_node.next
+                if temp_node is None:
+                    break
+
+            # If the key is not present
+            if temp_node is None:
+                return
+
+            if temp_node.next is None:
+                return
+
+            next = temp_node.next.next
+            temp_node.next = None
+            temp_node.next = next
+
+        def printList(self):
+            temp_node = self.head
+            while (temp_node):
+                print(str(temp_node.item) + " ", end="")
+                temp_node = temp_node.next
+
+
+    if __name__ == '__main__':
+
+        llist = LinkedList()
+        llist.insertAtEnd(1)
+        llist.insertAtBeginning(2)
+        llist.insertAtBeginning(3)
+        llist.insertAtEnd(4)
+        llist.insertAfter(llist.head.next, 5)
+
+        print('Linked list:')
+        llist.printList()
+
+        print("\nAfter deleting an element:")
+        llist.deleteNode(3)
+        llist.printList()
+    ```
+    <br>
+
+    ### Types:
+    - **Singly linked list**:
+        <br>Each node has data and a pointer to the next node.
+        
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/linked-list-concept_0.png" height="50%" width="50%" >
+    
+    - **Doubly linked list**:
+        <br>A pointer to previous node so tranverse in both forward and backward direction.
+
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/doubly-linked-list-concept.png" height="50%" width="50%" >
+    
+    - **Circular linked list**:
+        <br>Last node is linked to first node forming a circular loop.
+
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/circular-linked-list.png" height="50%" width="50%" >
+    
+    ****************************************************************************************
 <br>
 <br>
