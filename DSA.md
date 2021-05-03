@@ -775,3 +775,137 @@
     ****************************************************************************************
 <br>
 <br>
+
+- ## **Hash Tables:**
+    ### Concept:
+    Stores element in key valur pair.
+    - ***Key*** : Unique. Used for indexing values.
+    - ***Value*** : Data to be stored.
+    <br>
+
+    ### Hashing (Hash Fuction):
+    In a hash table, a new index is processed using the keys. And, the element corresponding to that key is stored in the index. This process is called hashing.
+    - `k` is key `h(x)` is hash function.
+    - `h(x)` gives index to store element in key.
+
+    <img src="https://cdn.programiz.com/sites/tutorial2program/files/Hash-2_0.png" height="60%" width="60%" >
+
+    - It is a processing of mapping large arbitrary data to tabular indexes.
+    - **Time Complexity: O(1).**
+    - 
+    <br>
+
+    ### Hash Collision:
+    - When hash function generates same indexfor multiple keys.
+    - Resolved using 2 techniques:
+        - Collision resolution by chaining.
+        - Open Addressing (Liner/Quadratic Probing and Double Hashing)
+    <br>
+
+    - ### **Collision Resolution by chaining:**
+        - Elements are stored in same the same index, using a doubly linked list.
+        - if `j` is the index, it stores address of the head of the list of items. If list is empty `j = NULL`.
+        - Pseudocode:
+        ```
+        chainedHashSearch(T, k)
+        return T[h(k)]
+        chainedHashInsert(T, x)
+        T[h(x.key)] = x //insert at the head
+        chainedHashDelete(T, x)
+        T[h(x.key)] = NIL
+        ```
+
+    - ### **Open Addressing:**
+        - Does not store multiple element in same index.
+        - Index is either filled with a single key or left `NULL`.
+        - **Liner Probing**:
+            - Collision resolved by checking next slot.
+            - `h(k, i) = (h′(k) + i) mod m`<br>
+                i = 1,2,3,....<br>
+                h'(k) = new hash funtion
+            - If collision at h(k,0) -> h(k,1) is checked.<br>
+                Value of `i` is linearly incremented.
+            - Time Complexity - O(n)
+        - **Quadratic Probing**:
+            - Similar to liner probing but next slot is given by:<br>
+                `h(k,i) = (h'(k) + c1i1 + c2i2) mod m`<br>
+                c1, c2 = constants<br>
+                i = 1,2,3....
+        - **Double Hashing**:
+            - If collision occures after h(k), another hash function is used for geting next free slot.
+            - `h(k, i) = (h1(k) + ih2(k)) mod m`
+    <br>
+
+    ### Good Hash Function:
+    - Reduces number of collisions.
+    1. **Division Method:**
+        - If `k` is key and `m` is size of hash table, <br>
+            `h(k) = k mod m`
+    2. **Multiplication Method:**
+        - `h(k) = ⌊m(kA mod 1)⌋`<br>
+            `kA mod 1` gives the fractional part `kA`<br>
+            `⌊ ⌋` gives the floor value<br>
+            `A` is constant between 0 and 1. Optimally `(√5-1)/2` (Knuth suggestion)
+    3. **Universal Hashing:**
+        - Hash function is chosen at random independent of keys.
+    <br>
+
+    ### Implementation:
+    ```python
+    hashTable = [[],] * 10
+
+    def checkPrime(n):
+        if n == 1 or n == 0:
+            return 0
+
+        for i in range(2, n//2):
+            if n % i == 0:
+                return 0
+
+        return 1
+
+
+    def getPrime(n):
+        if n % 2 == 0:
+            n = n + 1
+
+        while not checkPrime(n):
+            n += 2
+
+        return n
+
+
+    def hashFunction(key):
+        capacity = getPrime(10)
+        return key % capacity
+
+
+    def insertData(key, data):
+        index = hashFunction(key)
+        hashTable[index] = [key, data]
+
+    def removeData(key):
+        index = hashFunction(key)
+        hashTable[index] = 0
+
+    insertData(123, "apple")
+    insertData(432, "mango")
+    insertData(213, "banana")
+    insertData(654, "guava")
+
+    print(hashTable)
+
+    removeData(123)
+
+    print(hashTable)
+    ```
+    <br>
+
+    ### Applications:
+    - For constant time lookup and insertion
+    - Cryptographic applications
+    - Data indexing
+
+    *****************************************************************************************
+<br>
+<br>
