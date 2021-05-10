@@ -909,3 +909,100 @@
     *****************************************************************************************
 <br>
 <br>
+
+- ## **Heap DataStructure:**
+    ### Concept:
+    - Data structure that satisfies heap property and is a complete binary tree.
+    - Complete Binary Tree:
+        - Every level except the late is completely filled.
+        - Nodes are as far as possible
+    - Heap Property:
+        - ***Max Heap***: Key of each node is greater than its child node. Root node is the largest.
+        - ***Min Heap***: Key of eash node is smaller than its child node. Root node is the smallest.
+    <br>
+
+    ### Operation:
+    - **Heapify**:
+        1. Create a complete binary tree of the array.
+        2. Set `i` as 1st index of non-leaf node, given by `n/2 - 1`.
+        3. Set `i = largest`.
+        4. If leftChild(`2i+1`) is greater than `i`, set `leftChildIndex = largest`.<br>
+        If rightChlid(`2i+2`) is greater than `largest`, set `rightChildIndex = largest`.
+        5. Swap `largest` with `i`.
+        6. Repeat step 3-5.
+    - **Insert**:
+        1. Insert new element at the end.
+        2. Heapify.
+    - **Delete**:
+        1. Swap the required node with last element.
+        2. Remove the last element.
+        3. Heapify.
+    - **Peek**:
+        1. return `RootNode`.
+    <br>
+
+    ### Implementation:
+    ```python
+    # Max-Heap data structure in Python
+
+    def heapify(arr, n, i):
+        largest = i
+        l = 2 * i + 1
+        r = 2 * i + 2 
+        
+        if l < n and arr[i] < arr[l]:
+            largest = l
+        
+        if r < n and arr[largest] < arr[r]:
+            largest = r
+        
+        if largest != i:
+            arr[i],arr[largest] = arr[largest],arr[i]
+            heapify(arr, n, largest)
+
+    def insert(array, newNum):
+        size = len(array)
+        if size == 0:
+            array.append(newNum)
+        else:
+            array.append(newNum);
+            for i in range((size//2)-1, -1, -1):
+                heapify(array, size, i)
+
+    def deleteNode(array, num):
+        size = len(array)
+        i = 0
+        for i in range(0, size):
+            if num == array[i]:
+                break
+            
+        array[i], array[size-1] = array[size-1], array[i]
+
+        array.remove(num)
+        
+        for i in range((len(array)//2)-1, -1, -1):
+            heapify(array, len(array), i)
+        
+    arr = []
+
+    insert(arr, 3)
+    insert(arr, 4)
+    insert(arr, 9)
+    insert(arr, 5)
+    insert(arr, 2)
+
+    print ("Max-Heap array: " + str(arr))
+
+    deleteNode(arr, 4)
+    print("After deleting an element: " + str(arr))
+    ```
+    <br>
+
+    ### Application:
+    - Implementing Priority Queue.
+    - Dijkstra’s Algorithm
+    - Heap Sort
+    
+    *****************************************************************************************
+<br>
+<br>
