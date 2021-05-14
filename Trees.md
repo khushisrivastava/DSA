@@ -302,3 +302,90 @@ else:
 ****************************************************************************
 <br>
 <br>
+
+## **Complete Binary Tree:**
+Binary tree in which all the levels are completely filled except for the lowest one, which is filled from left.
+
+#### **Difference Between Full and Complete Binary Tree:**
+- Leaf must lean towards left.
+- Last leaf might not have right sibling.
+<br>
+
+### Creating Complete Binary Tree:
+- 1st element of the list is choosen as the root node.
+    
+    <img src="https://cdn.programiz.com/sites/tutorial2program/files/complete-binary-tree-creation-1.png" height="30%" width="30%" >
+- 2nd element is put as the left child of the root and 3rd element is put as right child of the root.
+
+    <img src="https://cdn.programiz.com/sites/tutorial2program/files/complete-binary-tree-creation-2.png" height="30%" width="30%" >
+- Next 2 element is put as child node of the left node in second level and next 2 element after that is put as child node of right node.
+
+    <img src="https://cdn.programiz.com/sites/tutorial2program/files/complete-binary-tree-creation-3.png" height="30%" width="30%" >
+- Repeat untill you reach the last element.
+<br>
+
+## Implementation:
+```python
+class Node:
+
+    def __init__(self, item):
+        self.item = item
+        self.left = None
+        self.right = None
+
+
+# Count the number of nodes
+def count_nodes(root):
+    if root is None:
+        return 0
+    return (1 + count_nodes(root.left) + count_nodes(root.right))
+
+
+# Check if the tree is complete binary tree
+def is_complete(root, index, numberNodes):
+
+    # Check if the tree is empty
+    if root is None:
+        return True
+
+    if index >= numberNodes:
+        return False
+
+    return (is_complete(root.left, 2 * index + 1, numberNodes)
+            and is_complete(root.right, 2 * index + 2, numberNodes))
+
+
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+root.right.left = Node(6)
+
+node_count = count_nodes(root)
+index = 0
+
+if is_complete(root, index, node_count):
+    print("The tree is a complete binary tree")
+else:
+    print("The tree is not a complete binary tree")
+```
+<br>
+
+### Realtionship between array indexes and tree elements:
+- Finding Child:
+    - If index of any element is `i`:
+        - left node: `2i+1`.
+        - right node: `2i+2`.
+- Findind Parent:
+    - If index of any element id `i`:
+        - parent: `lower_bound((i-1)/2)`
+<br>
+
+### Applications:
+- Heap-based datastructure
+- Heap sort
+
+****************************************************************************
+<br>
+<br>
