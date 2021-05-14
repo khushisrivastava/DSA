@@ -131,3 +131,38 @@ postorder(root)
 ****************************************************************************
 <br>
 <br>
+
+## **Binary Tree:**
+Tree in which each node has atmost 2 childern.
+
+### Types:
+- **Full Binary Tree**: Each node either has 2 child node or no child node.
+
+    <img src="https://cdn.programiz.com/sites/tutorial2program/files/full-binary-tree_0.png" height="20%" width="20%" >
+
+- **Perfect Binary Tree**: Each internal node has 2 child nodes and all leaf nodes are at same level. 
+<img src="https://cdn.programiz.com/sites/tutorial2program/files/perfect-binary-tree_0.png" height="30%" width="30%" >
+
+- **Complete Binary Tree**: Similar to Full Binary Tree but with few differences:
+    - Every level must be completely filled.
+    - Leaf element must lean towards left.
+    - Last leaf node might not have right sibling.
+
+    <img src="https://cdn.programiz.com/sites/tutorial2program/files/complete-binary-tree_0.png" height="30%" width="30%" >
+
+- **Degenerate or Pathological Tree**: Tree having sigle child either left or right.
+<img src="https://cdn.programiz.com/sites/tutorial2program/files/degenerate-binary-tree_0.png" height="20%" width="20%" >
+
+- **Skewed Binary Tree**: Pathological Binary tree in which tree is either dominated by left nodes or the right nodes. Are of 2 types:
+    - Left-Skewed Binary Tree
+    - Right-Skewed Binary Tree
+
+    <img src="https://cdn.programiz.com/sites/tutorial2program/files/skewed-binary-tree_0.png" height="30%" width="30%" >
+
+- **Balanced Binary Tree**: Type of Binary Tree in which the difference between the height of left and right sub tree for each node is either 1 or 0.
+
+<img src="https://cdn.programiz.com/sites/tutorial2program/files/height-balanced_1.png" height="35%" width="35%" >
+
+****************************************************************************
+<br>
+<br>
