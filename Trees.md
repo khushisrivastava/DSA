@@ -232,3 +232,73 @@ else:
 ****************************************************************************
 <br>
 <br>
+
+## Perfect Binary Tree
+Tree in which every internal node has exactly 2 child nodes and all leaf nodes are at same level.<br>
+All internal nodes have `degree 2`.<br>
+#### **Perfect Binary Tree is defined as**:
+- Single node with no childern, `h=0`,
+- Node has height `h>0`, and are prefect binary if both of its subtree has height `h-1` and are non- overlapping.
+<br>
+
+### Implementation:
+```python
+# Checking if a binary tree is a perfect binary tree in Python
+
+
+class newNode:
+    def __init__(self, k):
+        self.key = k
+        self.right = self.left = None
+
+
+# Calculate the depth
+def calculateDepth(node):
+    d = 0
+    while (node is not None):
+        d += 1
+        node = node.left
+    return d
+
+
+# Check if the tree is perfect binary tree
+def is_perfect(root, d, level=0):
+
+    # Check if the tree is empty
+    if (root is None):
+        return True
+
+    # Check the presence of trees
+    if (root.left is None and root.right is None):
+        return (d == level + 1)
+
+    if (root.left is None or root.right is None):
+        return False
+
+    return (is_perfect(root.left, d, level + 1) and
+            is_perfect(root.right, d, level + 1))
+
+
+root = None
+root = newNode(1)
+root.left = newNode(2)
+root.right = newNode(3)
+root.left.left = newNode(4)
+root.left.right = newNode(5)
+
+if (is_perfect(root, calculateDepth(root))):
+    print("The tree is a perfect binary tree")
+else:
+    print("The tree is not a perfect binary tree")
+```
+<br>
+
+### Theorems:
+- Prefect Binary tree of height `h` has `2^(h+1) -1` nodes.
+- Prefect Binary tree with `n` nodes have height `log(n + 1) – 1 = Θ(ln(n))`.
+- Perfect Binary tree of height `h` has `2^h` leaf nodes.
+- Average depth of a node in perfect binary tree is `Θ(ln(n))`.
+
+****************************************************************************
+<br>
+<br>
