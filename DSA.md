@@ -1,4 +1,4 @@
-# <center> DSA LEARNING
+# <center> Basic DataStructures
 <br>
 
 - ## **Asymtotic Notations**:

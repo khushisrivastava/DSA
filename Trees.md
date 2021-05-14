@@ -39,3 +39,95 @@ Non hierarchial data structure that consists of nodes and edges.<br>
 ****************************************************************************
 <br>
 <br>
+
+## **Tree Traversal:**
+Traversing means visiting every node of the tree.
+
+### Inorder Traversal:
+- left -> root -> right
+-  ```
+    inorder(root->left)
+    display(root->data)
+    inorder(root->right)
+<br>
+
+### Preorder Traversal:
+- root -> left -> right
+- ```
+    display(root->data)
+    preorder(root->left)
+    preorder(root->right)
+<br>
+
+### Postorder Traversal:
+- left -> right -> root
+- ```
+    postorder(root->left)
+    postorder(root->right)
+    display(root->data)
+<br>
+
+### Implementation:
+```python
+# Tree traversal in Python
+
+
+class Node:
+    def __init__(self, item):
+        self.left = None
+        self.right = None
+        self.val = item
+
+
+def inorder(root):
+
+    if root:
+        # Traverse left
+        inorder(root.left)
+        # Traverse root
+        print(str(root.val) + "->", end='')
+        # Traverse right
+        inorder(root.right)
+
+
+def postorder(root):
+
+    if root:
+        # Traverse left
+        postorder(root.left)
+        # Traverse right
+        postorder(root.right)
+        # Traverse root
+        print(str(root.val) + "->", end='')
+
+
+def preorder(root):
+
+    if root:
+        # Traverse root
+        print(str(root.val) + "->", end='')
+        # Traverse left
+        preorder(root.left)
+        # Traverse right
+        preorder(root.right)
+
+
+root = Node(1)
+root.left = Node(2)
+root.right = Node(3)
+root.left.left = Node(4)
+root.left.right = Node(5)
+
+print("Inorder traversal ")
+inorder(root)
+
+print("\nPreorder traversal ")
+preorder(root)
+
+print("\nPostorder traversal ")
+postorder(root)
+```
+
+****************************************************************************
+<br>
+<br>
