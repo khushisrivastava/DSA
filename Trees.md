@@ -458,3 +458,183 @@ else:
 ****************************************************************************
 <br>
 <br>
+
+## **Binary Search Tree:**
+This allows us to maintain a sorted list of numbers.
+- Binary Tree because maximum of 2 children per node.
+- Search Tree because search number in `O(log(n))` time.
+
+### Properties:
+- All node of left subtree are less than root node.
+- All node of right subtree are more than root node.
+- Both subtrees of each node are also BST.
+<br>
+
+### Search Operation:
+If the value is below the root, we can say for sure that the value is not in the right subtree; we need to only search in the left subtree and if the value is above the root, we can say for sure that the value is not in the left subtree; we need to only search in the right subtree.
+- Algorithm:
+    ```
+    If root == NULL 
+    return NULL;
+    If number == root->data 
+        return root->data;
+    If number < root->data 
+        return search(root->left)
+    If number > root->data 
+        return search(root->right)
+- If value is found, we return that value so that it gets propogated in each recursive step.
+- If value is not found, we reach left or right child of leaf node which is NULL and it gets propogated and returned.
+<br>
+
+### Insertion Operation:
+Inserting a value in the correct position is similar to searching. We keep going to either right subtree or left subtree depending on the value and when we reach a point left or right subtree is null, we put the new node there.
+- Algorithm:
+    ```
+    If node == NULL 
+    return createNode(data)
+    if (data < node->data)
+        node->left  = insert(node->left, data);
+    else if (data > node->data)
+        node->right = insert(node->right, data);  
+    return node
+<br>
+
+### Deletion Operation:
+- CASE I:
+    - In this case the node to be deleted is a leaf node, in such cases simply delete thee node from the tree.
+- CASE II:
+    - In this case the node to be deleted has one chlid node.
+    1. Replace the node with its chlid node.
+    2. Remove chlid node from original position.
+- CASE III:
+    - In this case the node to be deleted has 2 children.
+    1. Get the inorder successor of the node.
+    2. Replace the node with its successor.
+    3. Remove successor from its original position.
+<br>
+
+### Implementation:
+```python
+# Create a node
+class Node:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+
+# Inorder traversal
+def inorder(root):
+    if root is not None:
+        # Traverse left
+        inorder(root.left)
+
+        # Traverse root
+        print(str(root.key) + "->", end=' ')
+
+        # Traverse right
+        inorder(root.right)
+
+
+# Insert a node
+def insert(node, key):
+
+    # Return a new node if the tree is empty
+    if node is None:
+        return Node(key)
+
+    # Traverse to the right place and insert the node
+    if key < node.key:
+        node.left = insert(node.left, key)
+    else:
+        node.right = insert(node.right, key)
+
+    return node
+
+
+# Find the inorder successor
+def minValueNode(node):
+    current = node
+
+    # Find the leftmost leaf
+    while(current.left is not None):
+        current = current.left
+
+    return current
+
+
+# Deleting a node
+def deleteNode(root, key):
+
+    # Return if the tree is empty
+    if root is None:
+        return root
+
+    # Find the node to be deleted
+    if key < root.key:
+        root.left = deleteNode(root.left, key)
+    elif(key > root.key):
+        root.right = deleteNode(root.right, key)
+    else:
+        # If the node is with only one child or no child
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp
+
+        elif root.right is None:
+            temp = root.left
+            root = None
+            return temp
+
+        # If the node has two children,
+        # place the inorder successor in position of the node to be deleted
+        temp = minValueNode(root.right)
+
+        root.key = temp.key
+
+        # Delete the inorder successor
+        root.right = deleteNode(root.right, temp.key)
+
+    return root
+
+
+root = None
+root = insert(root, 8)
+root = insert(root, 3)
+root = insert(root, 1)
+root = insert(root, 6)
+root = insert(root, 7)
+root = insert(root, 10)
+root = insert(root, 14)
+root = insert(root, 4)
+
+print("Inorder traversal: ", end=' ')
+inorder(root)
+
+print("\nDelete 10")
+root = deleteNode(root, 10)
+print("Inorder traversal: ", end=' ')
+inorder(root)
+```
+<br>
+
+### Complexities:
+- Time Complexity:
+    Operation | Best Case | Average Case | Worst Case
+    ----------|-----------|--------------|-----------
+    Search | O(log(n)) | O(log(n)) | O(n)
+    Insert | O(log(n)) | O(log(n)) | O(n)
+    Delete | O(log(n)) | O(log(n)) | O(n)
+
+- Space Complexity: O(n)
+<br>
+
+### Application:
+- Multilevel indexing in database.
+- Dynamic Storing.
+- Managing virtual memory areas in UNIX kernel.
+
+****************************************************************************
+<br>
+<br>
