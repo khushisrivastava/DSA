@@ -638,3 +638,266 @@ inorder(root)
 ****************************************************************************
 <br>
 <br>
+
+## **AVL Trees:**
+- Self balancing BST
+- Each node has an extra information called **balance factor**:
+    - value can be -1, 0, +1
+- Named after Georgy Adelson-Velsky and Landis.
+
+### Balance Factor:
+- Difference between height of left subtree and right subtree.
+- The self balancing property  is maintained by the balance factor. Value should always be -1, 0 or +1.
+
+<img src="https://cdn.programiz.com/sites/tutorial2program/files/avl-tree-final-tree-1_0_2.png" height="40%" width="40%" >
+<br>
+
+### Rotating Subtree:
+- **Left Rotation**: Arrangements of the nodes on right is transfered into the arrangements on left node.
+    - Initial tree:<br>
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/avl-tree_leftrotate-1.png" height="20%" width="20%" >
+    - If `y` has left subtree, assign `x` as parent of left subtree of `y`.
+    - If parent of `x` is `NULL`, make `y` as root to the tree.
+    - Else if `x` is left child of `p`, make `y` as left child of `p`; else make `y` as right child of `p`.
+    - Make `y` as the parent of `x`.<br>
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/avl-tree_leftrotate-4.png" height="20%" width="20%" >
+
+- **Right Rotation**: Arrangements of the nodes on left is transfered into the arrangements on the right node.
+    - Initial tree:<br>
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/avl-tree_rightrotate-1.png" height="20%" width="20%" >
+    - If `x` has right subtree, assign `y` as parent of right subtree of `x`.
+    - If parent of `y` is `NULL`, make `x` as root of the tree.
+    - Else if `y` is right child of `p`, make `x` as right child of `p`; else make `x` as left child of `p`.
+    - Make `x` as parent of `y`.<br>
+        <img src="https://cdn.programiz.com/sites/tutorial2program/files/avl-tree_rightrotate-4.png" height="20%" width="20%" >
+
+- **Left-Right Rotation**: Arrangement is first shifted to left and then right.
+    - Do left rotation on `x-y`.<br>
+        <img src="https://cdn.programiz.com/cdn/farfuture/-azcNvOPWv7wEnEzT3h227dYtZBlAL8CXtHdwXenr1c/mtime:1590639276/sites/tutorial2program/files/avl-tree-leftright-rotate-1.png" height="50%" width="50%" >
+    - Do right rotation on `y-z`.<br>
+        <img src="https://cdn.programiz.com/cdn/farfuture/gZrKUeMiHusFL-lb6gAaMCfK_edFDj64Qi3MwlYJ_jw/mtime:1590639281/sites/tutorial2program/files/avl-tree-leftright-rotate-2.png" height="50%" width="50%" >
+
+- **Right-Left Rotation**: Arrangement is first shifted to right and then left.
+    - Do right rotation on `x-y`.<br>
+        <img src="https://cdn.programiz.com/cdn/farfuture/flq1MTO6SBcWdXIUda_BY4yhf9BLPRf7MT4Ip79vYF4/mtime:1590639294/sites/tutorial2program/files/avl-tree-rightleft-rotate-1.png" height="50%" width="50%" >
+    - Do left rotation on `z-y`.<br>
+        <img src="https://cdn.programiz.com/cdn/farfuture/MHtUIZ6EqUmgcC3exARGsdRiOFmENzCH-i_solZWi1g/mtime:1590639315/sites/tutorial2program/files/avl-tree-rightleft-rotate-2.png" height="50%" width="50%" >
+<br>
+
+### Insert a new node:
+- Goto the appropriate root node.
+    - If `newnode < rootnode`, call insertion algorithm on left subtree.
+    - Elif `newnode > rootnode`, call intertion algorithm on right subtree.
+    - Else return `leafnode`.
+- Compare `leafnode` with `newnode`.
+    - If `newnode < leafnode`, make `newnode` left child of `leafnode`.
+    - Else make `newnode` right child of `leafnode`.
+- Update `Balance Factor` of the nodes.
+- If nodes are unbalanced, then rebalance the tree.
+    - If `balance factor > 1` => height of left subtree is greater than right subtree.
+        - If `newnode < leafnode`, do right rotation.
+        - Else do left rotation.
+    - If `balance factor < -1` => height of right subtree is greater than left subtree.
+        - If `newnode > leafnode`, do left rotation.
+        - ELse do right rotation.
+<br>
+
+### Delete a node:
+- Locate the node `tobedeleted`.
+- 3 cases:
+    - If `tobedeleted` is a leaf node, remove the node.
+    - Elif `tobedeleted` has 1 child, subsitute content of `tobedeleted` with child node and remove the child.
+    - Elif `tobedeleted` had 2 children, find inorder successor of `tobedeleted` and substitude their contents and remove the successor.
+- Update `balance factor` of the nodes.
+- Rebalance the tree.
+    - If `balance factor > 1` of `currentnode`
+        - If `balance factor` of `leftchild >= 0`, do right rotation.
+        - Else do left rotation.
+    - If `balance factor < -1` of `currentnode`
+        - If `balance factor` of `rightchild <= 0`, do left rotation.
+        - Else do right rotation.
+<br>
+
+### Implementation:
+```python
+import sys
+
+# Create a tree node
+class TreeNode(object):
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+        self.height = 1
+
+
+class AVLTree(object):
+
+    # Function to insert a node
+    def insert_node(self, root, key):
+
+        # Find the correct location and insert the node
+        if not root:
+            return TreeNode(key)
+        elif key < root.key:
+            root.left = self.insert_node(root.left, key)
+        else:
+            root.right = self.insert_node(root.right, key)
+
+        root.height = 1 + max(self.getHeight(root.left),
+                              self.getHeight(root.right))
+
+        # Update the balance factor and balance the tree
+        balanceFactor = self.getBalance(root)
+        if balanceFactor > 1:
+            if key < root.left.key:
+                return self.rightRotate(root)
+            else:
+                root.left = self.leftRotate(root.left)
+                return self.rightRotate(root)
+
+        if balanceFactor < -1:
+            if key > root.right.key:
+                return self.leftRotate(root)
+            else:
+                root.right = self.rightRotate(root.right)
+                return self.leftRotate(root)
+
+        return root
+
+    # Function to delete a node
+    def delete_node(self, root, key):
+
+        # Find the node to be deleted and remove it
+        if not root:
+            return root
+        elif key < root.key:
+            root.left = self.delete_node(root.left, key)
+        elif key > root.key:
+            root.right = self.delete_node(root.right, key)
+        else:
+            if root.left is None:
+                temp = root.right
+                root = None
+                return temp
+            elif root.right is None:
+                temp = root.left
+                root = None
+                return temp
+            temp = self.getMinValueNode(root.right)
+            root.key = temp.key
+            root.right = self.delete_node(root.right,
+                                          temp.key)
+        if root is None:
+            return root
+
+        # Update the balance factor of nodes
+        root.height = 1 + max(self.getHeight(root.left),
+                              self.getHeight(root.right))
+
+        balanceFactor = self.getBalance(root)
+
+        # Balance the tree
+        if balanceFactor > 1:
+            if self.getBalance(root.left) >= 0:
+                return self.rightRotate(root)
+            else:
+                root.left = self.leftRotate(root.left)
+                return self.rightRotate(root)
+        if balanceFactor < -1:
+            if self.getBalance(root.right) <= 0:
+                return self.leftRotate(root)
+            else:
+                root.right = self.rightRotate(root.right)
+                return self.leftRotate(root)
+        return root
+
+    # Function to perform left rotation
+    def leftRotate(self, z):
+        y = z.right
+        T2 = y.left
+        y.left = z
+        z.right = T2
+        z.height = 1 + max(self.getHeight(z.left),
+                           self.getHeight(z.right))
+        y.height = 1 + max(self.getHeight(y.left),
+                           self.getHeight(y.right))
+        return y
+
+    # Function to perform right rotation
+    def rightRotate(self, z):
+        y = z.left
+        T3 = y.right
+        y.right = z
+        z.left = T3
+        z.height = 1 + max(self.getHeight(z.left),
+                           self.getHeight(z.right))
+        y.height = 1 + max(self.getHeight(y.left),
+                           self.getHeight(y.right))
+        return y
+
+    # Get the height of the node
+    def getHeight(self, root):
+        if not root:
+            return 0
+        return root.height
+
+    # Get balance factore of the node
+    def getBalance(self, root):
+        if not root:
+            return 0
+        return self.getHeight(root.left) - self.getHeight(root.right)
+
+    def getMinValueNode(self, root):
+        if root is None or root.left is None:
+            return root
+        return self.getMinValueNode(root.left)
+
+    def preOrder(self, root):
+        if not root:
+            return
+        print("{0} ".format(root.key), end="")
+        self.preOrder(root.left)
+        self.preOrder(root.right)
+
+    # Print the tree
+    def printHelper(self, currPtr, indent, last):
+        if currPtr != None:
+            sys.stdout.write(indent)
+            if last:
+                sys.stdout.write("R----")
+                indent += "     "
+            else:
+                sys.stdout.write("L----")
+                indent += "|    "
+            print(currPtr.key)
+            self.printHelper(currPtr.left, indent, False)
+            self.printHelper(currPtr.right, indent, True)
+
+
+myTree = AVLTree()
+root = None
+nums = [33, 13, 52, 9, 21, 61, 8, 11]
+for num in nums:
+    root = myTree.insert_node(root, num)
+myTree.printHelper(root, "", True)
+key = 13
+root = myTree.delete_node(root, key)
+print("After Deletion: ")
+myTree.printHelper(root, "", True)
+```
+<br>
+
+### Complexities:
+Insert | Delete | Search
+-------|--------|-------
+O(log(n)) | O(log(n)) | O(log(n))
+<br>
+
+### Application:
+- Indexing large records in database.
+- Searching in large database.
+
+****************************************************************************
+<br>
+<br>
