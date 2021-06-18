@@ -218,3 +218,386 @@ Kosaraju's algorithm runs in linear time i.e. `O(V+E)`.
 <br>
 <br>
 
+## **Adjacency Matrix:**
+Its is a way of representing graphs using matrix of booleans.
+
+### Pros:
+- Adding/Removing edge, checking whether edge between to vertex exists is very time efficient (constant time).
+- Advances in hardware enables us to perform expensive matrix operations on GPU.
+- Good choice for dense graph.
+<br>
+
+## Cons:
+- Requires a lot of space, V*v size.
+- Expensive to perform operations like, `inEdges` and `outEdges`.
+<br>
+
+### Implementation:
+```python
+# Adjacency Matrix representation in Python
+
+
+class Graph(object):
+
+    # Initialize the matrix
+    def __init__(self, size):
+        self.adjMatrix = []
+        for i in range(size):
+            self.adjMatrix.append([0 for i in range(size)])
+        self.size = size
+
+    # Add edges
+    def add_edge(self, v1, v2):
+        if v1 == v2:
+            print("Same vertex %d and %d" % (v1, v2))
+        self.adjMatrix[v1][v2] = 1
+        self.adjMatrix[v2][v1] = 1
+
+    # Remove edges
+    def remove_edge(self, v1, v2):
+        if self.adjMatrix[v1][v2] == 0:
+            print("No edge between %d and %d" % (v1, v2))
+            return
+        self.adjMatrix[v1][v2] = 0
+        self.adjMatrix[v2][v1] = 0
+
+    def __len__(self):
+        return self.size
+
+    # Print the matrix
+    def print_matrix(self):
+        for row in self.adjMatrix:
+            for val in row:
+                print('{:4}'.format(val)),
+            print
+
+
+def main():
+    g = Graph(5)
+    g.add_edge(0, 1)
+    g.add_edge(0, 2)
+    g.add_edge(1, 2)
+    g.add_edge(2, 0)
+    g.add_edge(2, 3)
+
+    g.print_matrix()
+
+
+if __name__ == '__main__':
+    main()
+```
+<br>
+
+### Applications:
+- Creating routing table in networks.
+- Navigation tasks
+
+****************************************************************************
+<br>
+<br>
+
+## **Adjacency List:**
+It represents graphs as array of linked list.<br>
+The index in the array represents a vertex and each element in its linked list represents the vertices that forms edge with the vertex.<br>
+It is very efficient in terms of space.
+
+### Structure:
+The simplest adjacency list needs a node data structure to store a vertex and a graph data structure to organize the nodes.
+```
+struct node
+{
+    int vertex;
+    struct node* next;
+};
+
+struct Graph
+{
+    int numVertices;
+    struct node** adjLists;
+};
+```
+
+### Implementation:
+```python
+# Adjascency List representation in Python
+
+
+class AdjNode:
+    def __init__(self, value):
+        self.vertex = value
+        self.next = None
+
+
+class Graph:
+    def __init__(self, num):
+        self.V = num
+        self.graph = [None] * self.V
+
+    # Add edges
+    def add_edge(self, s, d):
+        node = AdjNode(d)
+        node.next = self.graph[s]
+        self.graph[s] = node
+
+        node = AdjNode(s)
+        node.next = self.graph[d]
+        self.graph[d] = node
+
+    # Print the graph
+    def print_agraph(self):
+        for i in range(self.V):
+            print("Vertex " + str(i) + ":", end="")
+            temp = self.graph[i]
+            while temp:
+                print(" -> {}".format(temp.vertex), end="")
+                temp = temp.next
+            print(" \n")
+
+
+if __name__ == "__main__":
+    V = 5
+
+    # Create graph and edges
+    graph = Graph(V)
+    graph.add_edge(0, 1)
+    graph.add_edge(0, 2)
+    graph.add_edge(0, 3)
+    graph.add_edge(1, 2)
+
+    graph.print_agraph()
+```
+
+****************************************************************************
+<br>
+<br>
+
+## **Depth First Search:**
+Used for searching all the vertices of graph or tree.<br>
+DFS puts vertices in 2 categories: visited and not visited.<br>
+Purpose is to visit all nodes, avoiding cycles.
+
+### Algorithm:
+1. Put any one element of graph at the top of the stack.
+2. Take the top element of stack and add to the visited list.
+3. Create a list of vertex's adjacent nodes. Add the ones which aren't in the visited list to the top of the stack.
+4. Keep repeating 2. and 3. untill stack is empty.
+
+### Implementation:
+```python
+# DFS algorithm
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+
+    print(start)
+
+    for next in graph[start]:
+        if next not in visited:
+            dfs(graph, next, visited)
+    return visited
+
+
+graph = {'0': set(['1', '2']),
+         '1': set(['0', '3', '4']),
+         '2': set(['0']),
+         '3': set(['1']),
+         '4': set(['2', '3'])}
+
+dfs(graph, '0')
+```
+<br>
+
+### Complexities:
+Time Complexity: `O(V+E)`<br>
+where `V` is number of nodes and `E` is edges.<br>
+Space Complexity: `O(V)`
+<br>
+
+### Application:
+- Find a path.
+- Test if graph is biparite.
+- Find strongly connected components.
+- Detecting cycles in graph.
+
+****************************************************************************
+<br>
+<br>
+
+## **Breadth First Search:**
+Used for searching all the vertices of graph or tree.<br>
+BFS puts vertices in 2 categories: visited and not visited.<br>
+Purpose is to visit all nodes, avoiding cycles.
+
+### Algorithm:
+1. Put any one element of graph at the back of the queue.
+2. Take the front element of queue and add to the visited list.
+3. Create a list of vertex's adjacent nodes. Add the ones which aren't in the visited list to the back of the queue.
+4. Keep repeating 2. and 3. untill queue is empty. 
+<br>
+
+### Implementation:
+```python
+import collections
+
+# BFS algorithm
+def bfs(graph, root):
+
+    visited, queue = set(), collections.deque([root])
+    visited.add(root)
+
+    while queue:
+
+        # Dequeue a vertex from queue
+        vertex = queue.popleft()
+        print(str(vertex) + " ", end="")
+
+        # If not visited, mark it as visited, and
+        # enqueue it
+        for neighbour in graph[vertex]:
+            if neighbour not in visited:
+                visited.add(neighbour)
+                queue.append(neighbour)
+
+
+if __name__ == '__main__':
+    graph = {0: [1, 2], 1: [2], 2: [3], 3: [1, 2]}
+    print("Following is Breadth First Traversal: ")
+    bfs(graph, 0)
+```
+<br>
+
+### Complexities:
+Time Complexity: `O(V+E)`<br>
+where `V` is number of nodes and `E` is edges.<br>
+Space Complexity: `O(V)`
+<br>
+
+### Application:
+- Build index by search index.
+- GPS navigation.
+- Path finding algorithm.
+- Forf-Fulkerson algorithm.
+- Cycle detection.
+- min spanning trees.
+
+****************************************************************************
+<br>
+<br>
+
+## **Bellman Ford's Algorithm:**
+Helps in finding shortest path from a vertex to all other vertices of a weighted graph.<br>
+Similar to Dijkstra's algorithm but works with graphs having negative weights.
+<br>
+
+### Importance of negative weights:
+- Negative weights possible in phenomenas like cashflow or chemical reactions evolving heat dissipation or absorption.
+- Negative weights can create negative cycle, which reduces total path distance by coming back to same point.
+<br>
+
+### Algorithm:
+Works by overestimating the length of path from the starting vertex to all the vertices. Then it itratively relaxes those estimates by finding new paths which are shorter than the previously overestimated path.
+
+```
+function bellmanFord(G, S)
+  for each vertex V in G
+    distance[V] <- infinite
+      previous[V] <- NULL
+  distance[S] <- 0
+
+  for each vertex V in G				
+    for each edge (U,V) in G
+      tempDistance <- distance[U] + edge_weight(U, V)
+      if tempDistance < distance[V]
+        distance[V] <- tempDistance
+        previous[V] <- U
+
+  for each edge (U,V) in G
+    If distance[U] + edge_weight(U, V) < distance[V}
+      Error: Negative Cycle Exists
+
+  return distance[], previous[]
+```
+<br>
+
+### Bellman Ford vs Dijkstra:
+Dijkstra looks only at immediate neighbours of a vertex, Bellman Ford goes though each edge in every iteration.     
+<img src="https://cdn.programiz.com/sites/tutorial2program/files/bellman-ford-vs-dijkstra.jpg" >
+<br>
+
+### Implementation:
+```python
+# Bellman Ford Algorithm in Python
+
+
+class Graph:
+
+    def __init__(self, vertices):
+        self.V = vertices   # Total number of vertices in the graph
+        self.graph = []     # Array of edges
+
+    # Add edges
+    def add_edge(self, s, d, w):
+        self.graph.append([s, d, w])
+
+    # Print the solution
+    def print_solution(self, dist):
+        print("Vertex Distance from Source")
+        for i in range(self.V):
+            print("{0}\t\t{1}".format(i, dist[i]))
+
+    def bellman_ford(self, src):
+
+        # Step 1: fill the distance array and predecessor array
+        dist = [float("Inf")] * self.V
+        # Mark the source vertex
+        dist[src] = 0
+
+        # Step 2: relax edges |V| - 1 times
+        for _ in range(self.V - 1):
+            for s, d, w in self.graph:
+                if dist[s] != float("Inf") and dist[s] + w < dist[d]:
+                    dist[d] = dist[s] + w
+
+        # Step 3: detect negative cycle
+        # if value changes then we have a negative cycle in the graph
+        # and we cannot find the shortest distances
+        for s, d, w in self.graph:
+            if dist[s] != float("Inf") and dist[s] + w < dist[d]:
+                print("Graph contains negative weight cycle")
+                return
+
+        # No negative weight cycle found!
+        # Print the distance and predecessor array
+        self.print_solution(dist)
+
+
+g = Graph(5)
+g.add_edge(0, 1, 5)
+g.add_edge(0, 2, 4)
+g.add_edge(1, 3, 3)
+g.add_edge(2, 1, 6)
+g.add_edge(3, 2, 2)
+
+g.bellman_ford(0)
+```
+<br>
+
+### Complexities:
+- **TIME**:
+    Case | Complexity
+    -----|-----------
+    Best Case | O(E)
+    Average Case | O(VE)
+    Worst Case | O(VE)
+- **SPACE**: O(V)
+<br>
+
+### Applications:
+- Calculating shortest path in routing algorithm.
+- Finding shorted path.
+
+****************************************************************************
+<br>
+<br>
+
