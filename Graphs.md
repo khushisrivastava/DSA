@@ -227,7 +227,7 @@ Its is a way of representing graphs using matrix of booleans.
 - Good choice for dense graph.
 <br>
 
-## Cons:
+### Cons:
 - Requires a lot of space, V*v size.
 - Expensive to perform operations like, `inEdges` and `outEdges`.
 <br>
