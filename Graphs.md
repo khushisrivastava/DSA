@@ -601,3 +601,117 @@ g.bellman_ford(0)
 <br>
 <br>
 
+## **Kruskal's Algorithm:**
+It is the algorithm which takes graphs as input and returns minimum spanning tree as output.
+
+### Algorithm:
+Falls under greedy algorithm, that finds local optimum to find global minimum.<br>
+For a graph having `N` vertices, spanning tree should have total `N-1` edges.
+1. Sort all the edges in acending order of weights.
+2. Take the edge with lowest weight and add it to the spanning tree. If adding creates cycle, reject it.
+3. Keep adding edges untill we reach all the edges.
+
+The algorithm revolves around whether adding an edge created a loop of not.<br>
+This can be done using an algorithm `Union Find`. It divides vertices into clusters and checks if two vertices belong to same cluster or not.
+
+```
+KRUSKAL(G):
+A = ∅
+For each vertex v ∈ G.V:
+    MAKE-SET(v)
+For each edge (u, v) ∈ G.E ordered by increasing order by weight(u, v):
+    if FIND-SET(u) ≠ FIND-SET(v):       
+    A = A ∪ {(u, v)}
+    UNION(u, v)
+return A
+```
+<br>
+
+### Implementation:
+```python
+# Kruskal's algorithm in Python
+
+
+class Graph:
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = []
+
+    def add_edge(self, u, v, w):
+        self.graph.append([u, v, w])
+
+    # Search function
+
+    def find(self, parent, i):
+        if parent[i] != i:
+            return self.find(parent, parent[i])
+        return parent[i]
+
+    def apply_union(self, parent, rank, x, y):
+        xroot = self.find(parent, x)
+        yroot = self.find(parent, y)
+        if rank[xroot] < rank[yroot]:
+            parent[xroot] = yroot
+        elif rank[xroot] > rank[yroot]:
+            parent[yroot] = xroot
+        else:
+            parent[yroot] = xroot
+            rank[xroot] += 1
+
+    #  Applying Kruskal algorithm
+    def kruskal_algo(self):
+        result = []
+        i, e = 0, 0
+        self.graph = sorted(self.graph, key=lambda item: item[2])
+        parent = []
+        rank = []
+        for node in range(self.V):
+            parent.append(node)
+            rank.append(0)
+        while e < self.V - 1:
+            u, v, w = self.graph[i]
+            i = i + 1
+            x = self.find(parent, u)
+            y = self.find(parent, v)
+            if x != y:
+                e = e + 1
+                result.append([u, v, w])
+                self.apply_union(parent, rank, x, y)
+        for u, v, weight in result:
+            print("%d - %d: %d" % (u, v, weight))
+
+
+g = Graph(6)
+g.add_edge(0, 1, 4)
+g.add_edge(0, 2, 4)
+g.add_edge(1, 2, 2)
+g.add_edge(1, 0, 4)
+g.add_edge(2, 0, 4)
+g.add_edge(2, 1, 2)
+g.add_edge(2, 3, 3)
+g.add_edge(2, 5, 2)
+g.add_edge(2, 4, 4)
+g.add_edge(3, 2, 3)
+g.add_edge(3, 4, 3)
+g.add_edge(4, 2, 4)
+g.add_edge(4, 3, 3)
+g.add_edge(5, 2, 2)
+g.add_edge(5, 4, 3)
+g.kruskal_algo()
+```
+<br>
+
+### Complexity:
+Time complexity is `O(E logE)`<br>
+`E` is number of edges.
+<br>
+
+### Application:
+- Layout electrical wiring.
+- LAN connection.
+
+****************************************************************************
+<br>
+<br>
+
+## **Prim's Algorithm**
