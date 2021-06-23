@@ -485,122 +485,6 @@ Space Complexity: `O(V)`
 <br>
 <br>
 
-## **Bellman Ford's Algorithm:**
-Helps in finding shortest path from a vertex to all other vertices of a weighted graph.<br>
-Similar to Dijkstra's algorithm but works with graphs having negative weights.
-<br>
-
-### Importance of negative weights:
-- Negative weights possible in phenomenas like cashflow or chemical reactions evolving heat dissipation or absorption.
-- Negative weights can create negative cycle, which reduces total path distance by coming back to same point.
-<br>
-
-### Algorithm:
-Works by overestimating the length of path from the starting vertex to all the vertices. Then it itratively relaxes those estimates by finding new paths which are shorter than the previously overestimated path.
-
-```
-function bellmanFord(G, S)
-  for each vertex V in G
-    distance[V] <- infinite
-      previous[V] <- NULL
-  distance[S] <- 0
-
-  for each vertex V in G				
-    for each edge (U,V) in G
-      tempDistance <- distance[U] + edge_weight(U, V)
-      if tempDistance < distance[V]
-        distance[V] <- tempDistance
-        previous[V] <- U
-
-  for each edge (U,V) in G
-    If distance[U] + edge_weight(U, V) < distance[V}
-      Error: Negative Cycle Exists
-
-  return distance[], previous[]
-```
-<br>
-
-### Bellman Ford vs Dijkstra:
-Dijkstra looks only at immediate neighbours of a vertex, Bellman Ford goes though each edge in every iteration.     
-<img src="https://cdn.programiz.com/sites/tutorial2program/files/bellman-ford-vs-dijkstra.jpg" >
-<br>
-
-### Implementation:
-```python
-# Bellman Ford Algorithm in Python
-
-
-class Graph:
-
-    def __init__(self, vertices):
-        self.V = vertices   # Total number of vertices in the graph
-        self.graph = []     # Array of edges
-
-    # Add edges
-    def add_edge(self, s, d, w):
-        self.graph.append([s, d, w])
-
-    # Print the solution
-    def print_solution(self, dist):
-        print("Vertex Distance from Source")
-        for i in range(self.V):
-            print("{0}\t\t{1}".format(i, dist[i]))
-
-    def bellman_ford(self, src):
-
-        # Step 1: fill the distance array and predecessor array
-        dist = [float("Inf")] * self.V
-        # Mark the source vertex
-        dist[src] = 0
-
-        # Step 2: relax edges |V| - 1 times
-        for _ in range(self.V - 1):
-            for s, d, w in self.graph:
-                if dist[s] != float("Inf") and dist[s] + w < dist[d]:
-                    dist[d] = dist[s] + w
-
-        # Step 3: detect negative cycle
-        # if value changes then we have a negative cycle in the graph
-        # and we cannot find the shortest distances
-        for s, d, w in self.graph:
-            if dist[s] != float("Inf") and dist[s] + w < dist[d]:
-                print("Graph contains negative weight cycle")
-                return
-
-        # No negative weight cycle found!
-        # Print the distance and predecessor array
-        self.print_solution(dist)
-
-
-g = Graph(5)
-g.add_edge(0, 1, 5)
-g.add_edge(0, 2, 4)
-g.add_edge(1, 3, 3)
-g.add_edge(2, 1, 6)
-g.add_edge(3, 2, 2)
-
-g.bellman_ford(0)
-```
-<br>
-
-### Complexities:
-- **TIME**:
-    Case | Complexity
-    -----|-----------
-    Best Case | O(E)
-    Average Case | O(VE)
-    Worst Case | O(VE)
-- **SPACE**: O(V)
-<br>
-
-### Applications:
-- Calculating shortest path in routing algorithm.
-- Finding shorted path.
-
-****************************************************************************
-<br>
-<br>
-
 ## **Kruskal's Algorithm:**
 It is the algorithm which takes graphs as input and returns minimum spanning tree as output.
 
@@ -1454,6 +1338,201 @@ Time complexity is `O(E logV)` for adjancy list and `O(V^2)` for adjancy matrix.
 - Social networking application
 - telephone network
 - Find location on map
+
+***************************************************************************
+<br>
+<br>
+
+## **Bellman Ford's Algorithm:**
+Helps in finding shortest path from a vertex to all other vertices of a weighted graph.<br>
+Similar to Dijkstra's algorithm but works with graphs having negative weights.
+<br>
+
+### Importance of negative weights:
+- Negative weights possible in phenomenas like cashflow or chemical reactions evolving heat dissipation or absorption.
+- Negative weights can create negative cycle, which reduces total path distance by coming back to same point.
+<br>
+
+### Algorithm:
+Works by overestimating the length of path from the starting vertex to all the vertices. Then it itratively relaxes those estimates by finding new paths which are shorter than the previously overestimated path.
+
+```
+function bellmanFord(G, S)
+  for each vertex V in G
+    distance[V] <- infinite
+      previous[V] <- NULL
+  distance[S] <- 0
+
+  for each vertex V in G				
+    for each edge (U,V) in G
+      tempDistance <- distance[U] + edge_weight(U, V)
+      if tempDistance < distance[V]
+        distance[V] <- tempDistance
+        previous[V] <- U
+
+  for each edge (U,V) in G
+    If distance[U] + edge_weight(U, V) < distance[V}
+      Error: Negative Cycle Exists
+
+  return distance[], previous[]
+```
+<br>
+
+### Bellman Ford vs Dijkstra:
+Dijkstra looks only at immediate neighbours of a vertex, Bellman Ford goes though each edge in every iteration.     
+<img src="https://cdn.programiz.com/sites/tutorial2program/files/bellman-ford-vs-dijkstra.jpg" >
+<br>
+
+### Implementation:
+```python
+# Bellman Ford Algorithm in Python
+
+
+class Graph:
+
+    def __init__(self, vertices):
+        self.V = vertices   # Total number of vertices in the graph
+        self.graph = []     # Array of edges
+
+    # Add edges
+    def add_edge(self, s, d, w):
+        self.graph.append([s, d, w])
+
+    # Print the solution
+    def print_solution(self, dist):
+        print("Vertex Distance from Source")
+        for i in range(self.V):
+            print("{0}\t\t{1}".format(i, dist[i]))
+
+    def bellman_ford(self, src):
+
+        # Step 1: fill the distance array and predecessor array
+        dist = [float("Inf")] * self.V
+        # Mark the source vertex
+        dist[src] = 0
+
+        # Step 2: relax edges |V| - 1 times
+        for _ in range(self.V - 1):
+            for s, d, w in self.graph:
+                if dist[s] != float("Inf") and dist[s] + w < dist[d]:
+                    dist[d] = dist[s] + w
+
+        # Step 3: detect negative cycle
+        # if value changes then we have a negative cycle in the graph
+        # and we cannot find the shortest distances
+        for s, d, w in self.graph:
+            if dist[s] != float("Inf") and dist[s] + w < dist[d]:
+                print("Graph contains negative weight cycle")
+                return
+
+        # No negative weight cycle found!
+        # Print the distance and predecessor array
+        self.print_solution(dist)
+
+
+g = Graph(5)
+g.add_edge(0, 1, 5)
+g.add_edge(0, 2, 4)
+g.add_edge(1, 3, 3)
+g.add_edge(2, 1, 6)
+g.add_edge(3, 2, 2)
+
+g.bellman_ford(0)
+```
+<br>
+
+### Complexities:
+- **TIME**:
+    Case | Complexity
+    -----|-----------
+    Best Case | O(E)
+    Average Case | O(VE)
+    Worst Case | O(VE)
+- **SPACE**: O(V)
+<br>
+
+### Applications:
+- Calculating shortest path in routing algorithm.
+- Finding shorted path.
+
+****************************************************************************
+<br>
+<br>
+
+## **Floyd Warshall's Algorithm:**
+It is used to find shorted distance between all pair of vertices in a weighted graph. It works for both directed and unidirected graph but not for graph having negative cycle.<br>
+It used dynamc approach to find shortest path.
+
+### Algorithm:
+1. Create a matrix `A0` and fill each cell with the weights. Fill with `INF` if there is no path between 2 vertex.
+2. Create a matrix `A1` using `A0`. Keep 1st row and column as it it and fill the remaining as: `(A[i][k] + A[k][j]) if (A[i][j] > A[i][k] + A[k][j])`.<br>
+In this step, `k=1`. We calculate the distance from source vertex to destination vertex through this vertex k.
+3. Follow step `2` untill we have covered all the rows.<br>
+The obtained matrix is the matrix with shortest path.
+
+```
+n = no of vertices
+A = matrix of dimension n*n
+for k = 1 to n
+    for i = 1 to n
+        for j = 1 to n
+            Ak[i, j] = min (Ak-1[i, j], Ak-1[i, k] + Ak-1[k, j])
+return A
+```
+<br>
+
+### Implementation:
+```python
+# Floyd Warshall Algorithm in python
+
+
+# The number of vertices
+nV = 4
+
+INF = 999
+
+
+# Algorithm implementation
+def floyd_warshall(G):
+    distance = list(map(lambda i: list(map(lambda j: j, i)), G))
+
+    # Adding vertices individually
+    for k in range(nV):
+        for i in range(nV):
+            for j in range(nV):
+                distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
+    print_solution(distance)
+
+
+# Printing the solution
+def print_solution(distance):
+    for i in range(nV):
+        for j in range(nV):
+            if(distance[i][j] == INF):
+                print("INF", end=" ")
+            else:
+                print(distance[i][j], end="  ")
+        print(" ")
+
+
+G = [[0, 3, INF, 5],
+         [2, 0, INF, 4],
+         [INF, 1, 0, INF],
+         [INF, INF, 2, 0]]
+floyd_warshall(G)
+```
+<br>
+
+### Complexity:
+- **Time**: O(n^3)
+- **Space**: O(n^2)
+<br>
+
+### Application:
+- Find shorted path in directed graph.
+- Find transitive closure of directive graph.
+- Find inversion of real matrix.
+- Testing whether unidirected graph is bipartite.
 
 ***************************************************************************
 <br>
