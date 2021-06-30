@@ -1,0 +1,17 @@
+MamaEarth Admin Panel
+-Wrote a service that provides functionality to handle static data on the storefront, change and view orders, add products and various other miscellaneous functionalities from a single dashboard.
+-Written in Python - Django. Consists of 2 sections - REST API which was consumed within the dashboard and various storefronts, and a custom admin panel/ dashboard build using Django MTV Framework and JQuery.
+-Did some miscellaneous scripting work in Python.
+
+HeyConvaly (Backend)
+-HeyConvaly is a B2B platform for people who seek jobs, and for employees who are in search for perfect candidates for their job vacancies.
+-Implemented REST service using Django and integrated webhooks for Stripe payment gateway and automated Whatsapp Chat Service.
+-Wrote functionalities for Resume Scoring and Personality Test.
+
+Socbays (Backend)
+-A mobile application for football enthusiasts where one can create and manage football teams, book grounds for football challenges, challenge another team for a match, and buy sports products.
+-Built REST API enpoints using Django and Django REST Framework.
+
+- Project aimed to provide an interface for the vendors of various e-commerce platform, where they can keep tract of their orders and payments.
+- Build using Python, Flask and Django.
+- Designed the project schema and built REST API. 
