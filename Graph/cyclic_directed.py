@@ -20,7 +20,7 @@ class Cyclic(Graph):
         return False
     
     def bfs(self):
-        in_degree = defaultdict(int, {k:0 for k in self.vertices})
+        in_degree = defaultdict(int)
         
         for i in self.vertices:
             for j in self.graph[i]:
