@@ -15,31 +15,65 @@ class Cyclic(Graph):
     def union(self, src, dest):
         self.parent[dest] = src
 
-    def dfs(self, node):
-        if not self.parent:
-            self.parent = {i:i for i in self.vertices}
+    def union_find(self):
+        self.visited = set()
+
+        for i in self.vertices:
+            if i not in self.visited:
+                if not self.parent:
+                    self.parent = {i:i for i in self.vertices}
+                self.visited.add(i)
+                
+                for nei in self.graph[i]:
+                    if nei not in self.visited:
+                        if self.find(i) == self.find(nei):
+                            return True
+                        self.union(self.find(i), self.find(nei))
+        return False
+
+    def dfs(self, node, parent):
         self.visited.add(node)
-        
+
         for nei in self.graph[node]:
             if nei not in self.visited:
-                if self.find(node) == self.find(nei):
+                if self.dfs(nei, node):
                     return True
-                self.union(self.find(node), self.find(nei))
+            elif parent != nei:
+                return True
+        return False
+
+    def is_cyclic_dfs(self):
+        self.visited = set()
+        
+        for i in self.vertices:
+            if i not in self.visited and self.dfs(i, -1):
+                return True
+        return False
 
     def bfs(self, node):
-        if not self.parent:
-            self.parent = {i:i for i in self.vertices}
+        self.parent = {i:i for i in self.vertices}
         self.visited.add(node)
 
-        queue = deque([node])
-        while queue:
-            src = queue.popleft()
+        queue = deque()
+        queue.append(node)
 
-            for nei in self.graph[src]:
+        while queue:
+            v = queue.popleft()
+
+            for nei in self.graph[v]:
                 if nei not in self.visited:
-                    queue.append(nei)
                     self.visited.add(nei)
-                    if self.find(node) == self.find(nei):
-                        return True
-                    self.union(self.find(node), self.find(nei))
+                    queue.append(nei)
+                    self.parent[nei] = v
+
+                elif self.parent[v] != nei: 
+                    return True
+        return False
+
+    def is_cyclic_bfs(self):
+        self.visited = set()
+
+        for i in self.vertices:
+            if i not in self.visited and self.bfs(i):
+                return True
         return False

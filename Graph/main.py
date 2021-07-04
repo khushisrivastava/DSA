@@ -33,40 +33,40 @@ graph.bfs(0)
 print("None")
 print("DFS: ", end="")
 graph.dfs(0)
-print("None\n")
+print("None")
 
 ### Cycle
-print("DIRECTED CYCLE DETECTION::")
+print("\nDIRECTED CYCLE DETECTION::")
 print("Using DFS: ", end="")
 graph = directed_graph(CyclicDirected)
-ans = False
-for i in graph.vertices:
-    if i not in graph.visited and graph.dfs(i):
-        ans = True
-        break
-if ans: print("Graph has cycle")
-else: print("Graph do not have cycle")
+if graph.is_cyclic_dfs(): 
+    print("Graph has cycle")
+else: 
+    print("Graph do not have cycle")
 
 print("Using BFS: ", end="")
-print(f"{'Graph has cycle' if graph.bfs() else 'Graph do not have cycle'}")
+if graph.bfs():
+    print("Graph has cycle")
+else:
+    print("Graph do not have cycle")
 
-print("UNDIRECTED CYCLE DETECTION::")
+
+print("\nUNDIRECTED CYCLE DETECTION::")
+print("Using Union Find: ", end="")
+graph = undirected_graph(CyclicUndirected)
+if graph.union_find(): 
+    print("Graph has cycle")
+else: 
+    print("Graph do not have cycle")
+
 print("Using DFS: ", end="")
-graph = undirected_graph(CyclicUndirected)
-ans = False
-for i in graph.vertices:
-    if i not in graph.visited and graph.dfs(i):
-        ans = True
-        break
-if ans: print("Graph has cycle")
-else: print("Graph do not have cycle")
+if graph.is_cyclic_dfs():
+    print("Graph has cycle")
+else: 
+    print("Graph do not have cycle")
 
 print("Using BFS: ", end="")
-graph = undirected_graph(CyclicUndirected)
-ans = False
-for i in graph.vertices:
-    if i not in graph.visited and graph.bfs(i):
-        ans = True
-        break
-if ans: print("Graph has cycle")
-else: print("Graph do not have cycle")
+if graph.is_cyclic_bfs(): 
+    print("Graph has cycle")
+else: 
+    print("Graph do not have cycle")

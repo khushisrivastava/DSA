@@ -19,6 +19,12 @@ class Cyclic(Graph):
         path.remove(node)
         return False
     
+    def is_cyclic_dfs(self):
+        for i in self.vertices:
+            if i not in self.visited and self.dfs(i):
+                return True
+        return False
+    
     def bfs(self):
         in_degree = defaultdict(int)
         
