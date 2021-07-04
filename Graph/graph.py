@@ -5,9 +5,13 @@ class Graph:
         self.vertices = set()
         self.graph = defaultdict(list, {k:[] for k in self.vertices})
     
-    def add_node_unidirected(self, src, dest) -> None:
+    def add_node_undirected(self, src, dest) -> None:
         self.graph[src].append(dest)
         self.graph[dest].append(src)
+
+    def add_node_weighted_undirected(self, src, dest, wei) -> None:
+        self.graph[src].append((dest, wei))
+        self.graph[dest].append((src, wei))
     
     def add_node_directed(self, src, dest) -> None:
         self.graph[src].append(dest)
