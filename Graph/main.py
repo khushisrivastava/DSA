@@ -3,6 +3,7 @@ from cyclic_directed import Cyclic as CyclicDirected
 from cyclic_undirected import Cyclic as CyclicUndirected
 from dijkstra_adjancy_list import Dijktra
 from dijksta_adjancy_matrix import Graph as DijkstraAdjancyMatrix
+from bellman_ford import BellmanFord
 from prims_adjancy_list import Prims
 from prims_adjancy_matrix import Graph as PrimsAdjancyMatrix
 from kruskal import Krushkal
@@ -114,6 +115,11 @@ g.graph = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
         [0, 0, 2, 0, 0, 0, 6, 7, 0]
         ];
 g.dijkstra(0);
+
+## Bellman Ford
+print("\nBellmanFord:")
+graph = undirected_weighted_graph(BellmanFord)
+graph.bellman_ford(0)
 
 ## Prims
 print("\nAdjancy List Prims:")
