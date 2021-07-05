@@ -4,6 +4,7 @@ from cyclic_undirected import Cyclic as CyclicUndirected
 from dijkstra_adjancy_list import Dijktra
 from dijksta_adjancy_matrix import Graph as DijkstraAdjancyMatrix
 from bellman_ford import BellmanFord
+from floyd_warshall import FloydWarshall
 from prims_adjancy_list import Prims
 from prims_adjancy_matrix import Graph as PrimsAdjancyMatrix
 from kruskal import Krushkal
@@ -120,6 +121,16 @@ g.dijkstra(0);
 print("\nBellmanFord:")
 graph = undirected_weighted_graph(BellmanFord)
 graph.bellman_ford(0)
+
+## Floyd Warshall
+print("\nFloyd Warshall:")
+g = FloydWarshall(4)
+g.graph = [[0, 5, -1, 10],
+        [-1, 0, 3, -1],
+        [-1, -1, 0,   1],
+        [-1, -1, -1, 0]
+    ]
+g.floyd_warshall()
 
 ## Prims
 print("\nAdjancy List Prims:")
