@@ -3,6 +3,7 @@ from cyclic_directed import Cyclic as CyclicDirected
 from cyclic_undirected import Cyclic as CyclicUndirected
 from dijkstra_adjancy_list import Dijktra
 from prims_adjancy_list import Prims
+from prims_adjancy_matrix import Graph as PrimsAdjancyMatrix
 
 def undirected_graph(GraphClass):
     g = GraphClass()
@@ -102,3 +103,12 @@ graph.dijkstra(0)
 print("\nAdjancy List Prims:")
 graph = undirected_weighted_graph(Prims)
 graph.prims(0)
+
+print("\nAdjancy Matrix Prims")
+g = PrimsAdjancyMatrix(5)
+g.graph = [ [0, 2, 0, 6, 0],
+            [2, 0, 3, 8, 5],
+            [0, 3, 0, 0, 7],
+            [6, 8, 0, 0, 9],
+            [0, 5, 7, 9, 0]]
+g.prims(0);
