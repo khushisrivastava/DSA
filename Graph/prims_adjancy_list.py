@@ -87,4 +87,4 @@ class Prims(Graph):
         print("Edges in Minimum Spanning Tree are:")
         del parent[root]
         for src, dest in parent.items():
-            print(f"{dest} -> {src}")
+            print(f"{dest} -> {src} : {weight[src]}")

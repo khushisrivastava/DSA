@@ -5,6 +5,7 @@ from dijkstra_adjancy_list import Dijktra
 from dijksta_adjancy_matrix import Graph as DijkstraAdjancyMatrix
 from prims_adjancy_list import Prims
 from prims_adjancy_matrix import Graph as PrimsAdjancyMatrix
+from kruskal import Krushkal
 
 def undirected_graph(GraphClass):
     g = GraphClass()
@@ -127,3 +128,8 @@ g.graph = [ [0, 2, 0, 6, 0],
             [6, 8, 0, 0, 9],
             [0, 5, 7, 9, 0]]
 g.prims(0);
+
+## Kruskal
+print("\nAdjancy List Krushkal")
+g = undirected_weighted_graph(Krushkal)
+g.kruskal()
