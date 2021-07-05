@@ -2,6 +2,7 @@ from traversal import Traversal
 from cyclic_directed import Cyclic as CyclicDirected
 from cyclic_undirected import Cyclic as CyclicUndirected
 from dijkstra_adjancy_list import Dijktra
+from prims_adjancy_list import Prims
 
 def undirected_graph(GraphClass):
     g = GraphClass()
@@ -96,3 +97,8 @@ else:
 print("\nAdjancy List Dijstra:")
 graph = undirected_weighted_graph(Dijktra)
 graph.dijkstra(0)
+
+## Prims
+print("\nAdjancy List Prims:")
+graph = undirected_weighted_graph(Prims)
+graph.prims(0)
