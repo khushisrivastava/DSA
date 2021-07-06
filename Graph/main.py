@@ -8,6 +8,8 @@ from floyd_warshall import FloydWarshall
 from prims_adjancy_list import Prims
 from prims_adjancy_matrix import Graph as PrimsAdjancyMatrix
 from kruskal import Krushkal
+from topological_sort import TopologicalSort
+from kahn_algorithm import Kahn
 
 def undirected_graph(GraphClass):
     g = GraphClass()
@@ -42,13 +44,13 @@ def undirected_weighted_graph(GraphClass):
 
 def directed_graph(GraphClass):
     g = GraphClass()
-    g.vertices = [0, 1, 2, 3]
-    g.add_node_directed(3, 3)
+    g.vertices = [0, 1, 2, 3, 4, 5]
+    g.add_node_directed(5, 0)
+    g.add_node_directed(5, 2)
+    g.add_node_directed(4, 0)
+    g.add_node_directed(4, 1)
     g.add_node_directed(2, 3)
-    g.add_node_directed(0, 2)
-    g.add_node_directed(2, 0)
-    g.add_node_directed(0, 1)
-    g.add_node_directed(1, 2)
+    g.add_node_directed(3, 1)
 
     return g
 
@@ -150,3 +152,13 @@ g.prims(0);
 print("\nAdjancy List Krushkal")
 g = undirected_weighted_graph(Krushkal)
 g.kruskal()
+
+## Topological Sort
+print("\nTopological Sort::")
+s = directed_graph(TopologicalSort)
+s.topological_sort()
+
+## Kahn's Algorithm
+print("\nKahn's Algorithm")
+s = directed_graph(Kahn)
+s.kahn()

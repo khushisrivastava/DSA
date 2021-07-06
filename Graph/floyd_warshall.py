@@ -21,10 +21,3 @@ class FloydWarshall():
                 if j == self.V-1:
                     print()
 
-g = FloydWarshall(4)
-g.graph = [[0, 5, -1, 10],
-        [-1, 0, 3, -1],
-        [-1, -1, 0,   1],
-        [-1, -1, -1, 0]
-    ]
-g.floyd_warshall()
