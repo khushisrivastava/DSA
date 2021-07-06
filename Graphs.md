@@ -1538,3 +1538,192 @@ floyd_warshall(G)
 <br>
 <br>
 
+## **Topological Sort:**
+Topological sorting is only possible in Directed Acyclic Graph. It is a liner ordering of vertices such tha for every directed edge `(u,v)`, vertex `u` comes before vertex `v` in ordering.<br>
+The first vertex of topological sort is always the vertex with in-order degree as 0.
+<br>
+
+### Implementation:
+```python
+# Python program to print topological sorting of a DAG
+from collections import defaultdict
+ 
+# Class to represent a graph
+ 
+ 
+class Graph:
+    def __init__(self, vertices):
+        self.graph = defaultdict(list)  # dictionary containing adjacency List
+        self.V = vertices  # No. of vertices
+ 
+    # function to add an edge to graph
+    def addEdge(self, u, v):
+        self.graph[u].append(v)
+ 
+    # A recursive function used by topologicalSort
+    def topologicalSortUtil(self, v, visited, stack):
+ 
+        # Mark the current node as visited.
+        visited[v] = True
+ 
+        # Recur for all the vertices adjacent to this vertex
+        for i in self.graph[v]:
+            if visited[i] == False:
+                self.topologicalSortUtil(i, visited, stack)
+ 
+        # Push current vertex to stack which stores result
+        stack.append(v)
+ 
+    # The function to do Topological Sort. It uses recursive
+    # topologicalSortUtil()
+    def topologicalSort(self):
+        # Mark all the vertices as not visited
+        visited = [False]*self.V
+        stack = []
+ 
+        # Call the recursive helper function to store Topological
+        # Sort starting from all vertices one by one
+        for i in range(self.V):
+            if visited[i] == False:
+                self.topologicalSortUtil(i, visited, stack)
+ 
+        # Print contents of the stack
+        print(stack[::-1])  # return list in reverse order
+ 
+ 
+# Driver Code
+g = Graph(6)
+g.addEdge(5, 2)
+g.addEdge(5, 0)
+g.addEdge(4, 0)
+g.addEdge(4, 1)
+g.addEdge(2, 3)
+g.addEdge(3, 1)
+ 
+print ("Following is a Topological Sort of the given graph")
+ 
+# Function Call
+g.topologicalSort()
+```
+<br>
+
+### Complexity:
+- Time: O(V+E)
+- Space: O(V)
+<br>
+
+### Applications:
+- Scheduling jobs
+
+***************************************************************************
+<br>
+<br>
+
+## **Kahn's Algorithm**
+This algorithm is used to find topological sort of a graph.<br>
+It is based on the idea that in a directed acyclic graph there is atleast 1 node with in-degree 0 and 1 node with out-degree 0.
+<br>
+
+### Algorithm:
+- Compute in-degree for each node in the graph and initialise the count of visited node to 0.
+- Pick all the nodes with in-degree 0 and push them in queue.
+- Remove vertex from queue
+    - Increment count of visited node to 1
+    - Decrease in-degree of neighbouring nodes by 1
+    - If in-degree of neighbouring node is 0, add them to queue.
+    - Repeat untill queue is empty.
+- If count of visited nodes is not equal to number of vertices, then topological sort is not possible.
+<br>
+
+### Implementation:
+```python
+# A Python program to print topological sorting of a graph
+# using indegrees
+from collections import defaultdict
+  
+# Class to represent a graph
+class Graph:
+    def __init__(self, vertices):
+        self.graph = defaultdict(list) # dictionary containing adjacency List
+        self.V = vertices # No. of vertices
+  
+    # function to add an edge to graph
+    def addEdge(self, u, v):
+        self.graph[u].append(v)
+  
+  
+    # The function to do Topological Sort. 
+    def topologicalSort(self):
+          
+        # Create a vector to store indegrees of all
+        # vertices. Initialize all indegrees as 0.
+        in_degree = [0]*(self.V)
+          
+        # Traverse adjacency lists to fill indegrees of
+           # vertices.  This step takes O(V + E) time
+        for i in self.graph:
+            for j in self.graph[i]:
+                in_degree[j] += 1
+  
+        # Create an queue and enqueue all vertices with
+        # indegree 0
+        queue = []
+        for i in range(self.V):
+            if in_degree[i] == 0:
+                queue.append(i)
+  
+        # Initialize count of visited vertices
+        cnt = 0
+  
+        # Create a vector to store result (A topological
+        # ordering of the vertices)
+        top_order = []
+  
+        # One by one dequeue vertices from queue and enqueue
+        # adjacents if indegree of adjacent becomes 0
+        while queue:
+  
+            # Extract front of queue (or perform dequeue)
+            # and add it to topological order
+            u = queue.pop(0)
+            top_order.append(u)
+  
+            # Iterate through all neighbouring nodes
+            # of dequeued node u and decrease their in-degree
+            # by 1
+            for i in self.graph[u]:
+                in_degree[i] -= 1
+                # If in-degree becomes zero, add it to queue
+                if in_degree[i] == 0:
+                    queue.append(i)
+  
+            cnt += 1
+  
+        # Check if there was a cycle
+        if cnt != self.V:
+            print "There exists a cycle in the graph"
+        else :
+            # Print topological order
+            print top_order
+  
+  
+g = Graph(6)
+g.addEdge(5, 2);
+g.addEdge(5, 0);
+g.addEdge(4, 0);
+g.addEdge(4, 1);
+g.addEdge(2, 3);
+g.addEdge(3, 1);
+  
+print "Following is a Topological Sort of the given graph"
+g.topologicalSort()
+```
+<br>
+
+### Complexity:
+- Time: O(V+E)
+- Space: O(V)
+
+***************************************************************************
+<br>
+<br>
