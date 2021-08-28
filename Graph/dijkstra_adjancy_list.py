@@ -63,13 +63,15 @@ class Heaps:
 class Dijktra(Graph):
     def dijkstra(self, src):
         weight = {i:float("inf") for i in self.vertices}
-        weight[src] = 0
 
         heap = Heaps()
         for i, v in enumerate(self.vertices):
             heap.array.append(Node(v, weight[v]))
             heap.pos[v] = i
         
+        weight[src] = 0
+        heap.update_weight(src, 0)
+
         while not heap.is_empty():
             source = heap.extract_min()
 
