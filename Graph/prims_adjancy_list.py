@@ -66,7 +66,6 @@ class Heaps:
 class Prims(Graph):
     def prims(self, root):
         weight = {i:float("inf") for i in self.vertices}
-        weight[root] = 0
 
         parent = {root: None}
         heap = Heaps()
@@ -75,6 +74,9 @@ class Prims(Graph):
             heap.array.append(Node(vertex, weight[vertex]))
             heap.pos[vertex] = i
         
+        weight[root] = 0
+        heap.update_weight(root, 0)
+
         while not heap.is_empty():
             source = heap.extract_min()
 
