@@ -17,11 +17,10 @@ class Cyclic(Graph):
 
     def union_find(self):
         self.visited = set()
+        self.parent = {i:i for i in self.vertices}
 
         for i in self.vertices:
             if i not in self.visited:
-                if not self.parent:
-                    self.parent = {i:i for i in self.vertices}
                 self.visited.add(i)
                 
                 for nei in self.graph[i]:
